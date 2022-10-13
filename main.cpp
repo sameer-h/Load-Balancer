@@ -1,26 +1,27 @@
 #include <iostream>
+#include <vector>
 #include "req.h"
 #include "lb.h"
 #include "webserver.h"
-#include <vector>
-
+#include "time.h"
+#include "limits.h"
 
 using namespace std;
 
 
 Request makeReq() {
     Request newReq;
-    newReq.randTime++; // Time will always be above 0
+    newReq.randTime++;
     return newReq;
 }
 
 int main () {
 
+    srand(time(0));
 
     int numReqs = 0;
     int numServers = 0;
     int runtime = 0;
-
 
     cout << "Enter the number of servers:" << endl;
     cin >> numServers;
@@ -30,21 +31,18 @@ int main () {
     cout << "Enter the amount of time the load balancer should run:" << endl;
     cin >> runtime;
 
-    // Request req;
-    // cout << "IP IN: " << req.ipI << endl;
-    // cout << "IP OUT: " << req.ipO << endl;
-    // cout << "IP TIME: " << req.randTime << endl;
-
-
-
     LoadBal loadBal = LoadBal();
 
     for (int i = 0; i < numReqs; i++) {
 
         Request randReq = makeReq();
         loadBal.pushReq(randReq);
+
   
     }
+
+
+    cout << "Queue Initial Size: " << loadBal.getQueueSize() << endl;
 
     vector<Webserver> serverVect(numServers, NULL);
 
@@ -72,11 +70,16 @@ int main () {
             serverVect[curTime % numServers].processReq(loadBal.getReq(), curTime);
         }
 
+        if (rand() % 15 == 0) {
+            Request randReq = makeReq();
+            loadBal.pushReq(randReq);
+        }
+
         loadBal.incTime();
     }
 
-
-
+    cout << "Queue Final Size: " << loadBal.getQueueSize() << endl;
+ 
     return 0;
 
 }
