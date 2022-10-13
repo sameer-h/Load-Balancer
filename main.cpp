@@ -22,6 +22,11 @@ int main () {
     cout << "Enter the amount of time the load balancer should run:" << endl;
     cin >> runtime;
 
+    Request req;
+    cout << "IP IN: " << req.ipI << endl;
+    cout << "IP OUT: " << req.ipO << endl;
+    cout << "IP TIME: " << req.randTime << endl;
+
   
  
     return 0;
