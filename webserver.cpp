@@ -13,6 +13,16 @@ void Webserver::processReq(Request req_, int curTime) {
 
 }
 
+bool Webserver::reqStatus(int curTime) {
+
+    if (curTime >= (reqStartTime + req.randTime)) {
+        return true;
+    } 
+
+    return false;
+
+}
+
 char Webserver::getWebserverName() {
     return serverName;
 }

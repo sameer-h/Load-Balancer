@@ -2,6 +2,7 @@
 #include "req.h"
 #include "lb.h"
 #include "webserver.h"
+#include <vector>
 
 
 using namespace std;
@@ -26,6 +27,17 @@ int main () {
     cout << "IP IN: " << req.ipI << endl;
     cout << "IP OUT: " << req.ipO << endl;
     cout << "IP TIME: " << req.randTime << endl;
+
+    LoadBal loadBal = LoadBal();
+
+    for (int i = 0; i < numReqs; i++) {
+
+        Request randReq;
+        loadBal.pushReq(randReq);
+  
+    }
+
+    vector<Webserver> serverVect(numServers, NULL);
 
   
  

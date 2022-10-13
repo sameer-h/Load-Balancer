@@ -18,6 +18,7 @@ class Webserver {
     public:
 
         Webserver(char name);
+        bool reqStatus(int curTime);
         void processReq(Request req, int curTime);
         char getWebserverName();
         Request getReq();

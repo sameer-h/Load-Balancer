@@ -1,9 +1,44 @@
 #include <iostream>
-using namespace std;
+#include <string>
+#include <queue>
 
-int main(){
+#include "lb.h"
 
-    cout << "hi" << endl;
-    return 0;
-    
+
+int LoadBal::getTime() {
+
+    return time;
+
 }
+
+int LoadBal::getQueueSize() {
+    return reqQueue.size();
+}
+
+LoadBal::LoadBal() {
+    time = 0;
+}
+
+void LoadBal::incTime() {
+    time+=1;
+}
+
+void LoadBal::pushReq(Request req) {
+    reqQueue.push(req);
+    incTime();
+}
+
+bool LoadBal::isQueueClear() {
+    return reqQueue.empty();
+}
+
+Request LoadBal::getReq() {
+    incTime();
+    if (!reqQueue.empty()) {
+        Request next = reqQueue.front();
+        reqQueue.pop();
+        return next;
+    }
+
+}
+
