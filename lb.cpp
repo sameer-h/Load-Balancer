@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 #include <string>
 #include <queue>
 
@@ -40,5 +41,7 @@ Request LoadBal::getReq() {
         return next;
     }
 
+    cout << "Error" << endl;
+    exit(0);
 }
 
