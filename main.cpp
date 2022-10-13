@@ -8,12 +8,22 @@
 
 using namespace std;
 
+/**
+ * Generates random request with randomized time, and src/dest ip addresses
+ * @return random request
+ */
 Request makeReq() {
     Request newReq;
-    newReq.randTime++;
+    newReq.randTime++; // Time will always be above 0
     return newReq;
 }
 
+/**
+ * Helper function to compare and set values for max task time and min task time
+ * @param compareTime, Current time to be compared to maxTime and minTime
+ * @param maxTime, Max time that changes if compare time is larger
+ * @param minTime, Min time that changes if compare time is smaller
+ */
 void setTimes(int& compareTime, int& maxTime, int& minTime) {
 
     if (compareTime > maxTime) {
