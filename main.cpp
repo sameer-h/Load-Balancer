@@ -8,11 +8,22 @@
 
 using namespace std;
 
-
 Request makeReq() {
     Request newReq;
     newReq.randTime++;
     return newReq;
+}
+
+void setTimes(int& compareTime, int& maxTime, int& minTime) {
+
+    if (compareTime > maxTime) {
+        maxTime = compareTime;
+    }
+
+    if (compareTime < minTime) {
+        minTime = compareTime;
+    }
+
 }
 
 int main () {
@@ -22,6 +33,8 @@ int main () {
     int numReqs = 0;
     int numServers = 0;
     int runtime = 0;
+    int maxTime = 0;
+    int minTime = INT_MAX;
 
     cout << "Enter the number of servers:" << endl;
     cin >> numServers;
@@ -36,8 +49,10 @@ int main () {
     for (int i = 0; i < numReqs; i++) {
 
         Request randReq = makeReq();
+        int compareTime = randReq.randTime;
         loadBal.pushReq(randReq);
 
+        setTimes(compareTime, maxTime, minTime);
   
     }
 
@@ -72,13 +87,17 @@ int main () {
 
         if (rand() % 15 == 0) {
             Request randReq = makeReq();
+            int compareTime = randReq.randTime;
             loadBal.pushReq(randReq);
+
+            setTimes(compareTime, maxTime, minTime);
         }
 
         loadBal.incTime();
     }
 
     cout << "Queue Final Size: " << loadBal.getQueueSize() << endl;
+    cout << "Time Range: " << minTime << " - " << maxTime << " secs" << endl;
  
     return 0;
 
